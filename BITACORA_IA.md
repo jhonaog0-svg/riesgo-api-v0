@@ -1,13 +1,13 @@
 # Bitacora de uso de IA
 
-**Grupo:** completar · **Integrantes:** completar
+**Grupo:** por asignar · **Integrantes:** Jhon Ocampo, Paula Español, Luisa Martinez
 
 ## Prompts
 
 | # | Parte | Quien | Prompt |
 |---|---|---|---|
-| 1 | A-B | completar | Analizar el servicio y proponer un refactor bajo las restricciones del enunciado. |
-| 2 | D | completar | Auditar ia_propuesta.py y demostrar sus defectos con pruebas ejecutables. |
+| 1 | A-B | Jhon Ocampo | Analizar el servicio y proponer un refactor bajo las restricciones del enunciado. |
+| 2 | D | Paula Español | Auditar ia_propuesta.py y demostrar sus defectos con pruebas ejecutables. |
 
 ## Aceptado
 

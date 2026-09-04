@@ -3,6 +3,7 @@ import time
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 import config
@@ -13,6 +14,11 @@ BASE = Path(__file__).parent
 modelo = ModeloRiesgo()
 app = FastAPI(title="Riesgo API", version="1.0.0")
 app.state.evaluaciones = []
+
+
+@app.get("/", response_class=HTMLResponse, include_in_schema=False)
+def inicio():
+    return (BASE / "index.html").read_text(encoding="utf-8")
 
 
 class SolicitudPuntuacion(BaseModel):

@@ -1,6 +1,6 @@
 # Dictamen sobre `ia_propuesta.py`
 
-**Grupo:** completar · **Integrantes:** completar
+**Grupo:** por asignar · **Integrantes:** Jhon Ocampo, Paula Español, Luisa Martinez
 
 ## Defecto 1
 - **Que esta mal:** El validador `redondear_monto` no retorna el valor.

@@ -22,6 +22,8 @@ python -m pip install -r requirements.txt
 
 ## Puesta en marcha
 
+En Windows también puedes hacer doble clic en `iniciar_api.bat`. El archivo prepara el entorno, instala las dependencias, inicia el servicio y abre el panel en el navegador.
+
 ```bash
 uvicorn main:app --host 0.0.0.0 --port 8000 --workers 2
 ```
