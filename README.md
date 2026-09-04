@@ -4,17 +4,29 @@ Servicio de puntuacion de siniestros para la Aseguradora Santo Tomas.
 
 ## Instalacion
 
-```bash
+Desde la raiz del repositorio, abre PowerShell y ejecuta:
+
+```powershell
 python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
 ```
 
-## Desarrollo y produccion
+En Linux o macOS:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+```
+
+## Puesta en marcha
 
 ```bash
 uvicorn main:app --host 0.0.0.0 --port 8000 --workers 2
 ```
+
+La API queda disponible en `http://localhost:8000`. Para detenerla, presiona `Ctrl+C`.
 
 ## Comprobacion
 
@@ -24,6 +36,16 @@ curl -X POST http://localhost:8000/score -H "Content-Type: application/json" -d 
 ```
 
 Las entradas invalidas responden `422`; un siniestro inexistente responde `404`; `/exportar` responde JSON.
+
+La documentacion interactiva esta en `http://localhost:8000/docs`.
+
+## Pruebas
+
+En otra terminal, desde la raiz del repositorio y con el entorno activado:
+
+```bash
+python -m pytest -q
+```
 
 ## Mediciones
 
