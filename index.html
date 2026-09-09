@@ -111,27 +111,49 @@
   </main>
   <script>
     const form = document.querySelector('#score-form');
+    let scoreRequest = 0;
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       const message = document.querySelector('#message');
+      const button = form.querySelector('button[type="submit"]');
+      const requestId = ++scoreRequest;
+      button.disabled = true;
       message.textContent = 'Consultando...';
       const payload = { poliza: document.querySelector('#poliza').value, monto: Number(document.querySelector('#monto').value), antiguedad: Number(document.querySelector('#antiguedad').value), siniestros_previos: Number(document.querySelector('#siniestros').value) };
       try {
         const response = await fetch('/score', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         const data = await response.json();
         if (!response.ok) throw new Error(`${response.status}: ${data.detail?.[0]?.msg || data.detail || 'Error de validación'}`);
+        if (requestId !== scoreRequest) return;
         document.querySelector('#score').textContent = `${(data.puntaje * 100).toFixed(1)}%`;
         document.querySelector('#status').textContent = data.alto_riesgo ? 'Riesgo alto' : 'Riesgo controlado';
         document.querySelector('#detail').textContent = `Póliza ${data.poliza} evaluada correctamente.`;
         message.textContent = '';
-      } catch (error) { message.textContent = error.message; }
+      } catch (error) {
+        if (requestId === scoreRequest) message.textContent = error.message || 'No se pudo completar la consulta.';
+      } finally {
+        if (requestId === scoreRequest) button.disabled = false;
+      }
     });
+    let lookupRequest = 0;
     document.querySelector('#lookup-form').addEventListener('submit', async (event) => {
       event.preventDefault();
+      const form = event.currentTarget;
+      const button = form.querySelector('button[type="submit"]');
+      const result = document.querySelector('#lookup-result');
+      const requestId = ++lookupRequest;
       const id = document.querySelector('#siniestro-id').value;
-      const response = await fetch(`/siniestros/${id}`);
-      const data = await response.json();
-      document.querySelector('#lookup-result').textContent = `${response.status}: ${JSON.stringify(data, null, 2)}`;
+      button.disabled = true;
+      result.textContent = 'Consultando...';
+      try {
+        const response = await fetch(`/siniestros/${id}`, { cache: 'no-store' });
+        const data = await response.json();
+        if (requestId === lookupRequest) result.textContent = `${response.status}: ${JSON.stringify(data, null, 2)}`;
+      } catch (error) {
+        if (requestId === lookupRequest) result.textContent = error.message || 'No se pudo completar la consulta.';
+      } finally {
+        if (requestId === lookupRequest) button.disabled = false;
+      }
     });
   </script>
 </body>
