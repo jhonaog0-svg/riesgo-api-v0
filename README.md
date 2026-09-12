@@ -4,6 +4,8 @@ Servicio de puntuacion de siniestros para la Aseguradora Santo Tomas.
 
 ## Instalacion
 
+Este proyecto usa Python 3.13.14. En Windows usa `py -3.13` o `python`; en Linux/macOS usa `python3.13` o `python`.
+
 Desde la raiz del repositorio, abre PowerShell y ejecuta:
 
 ```powershell
